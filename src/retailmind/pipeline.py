@@ -5,9 +5,9 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
-def build_pipeline(X):
+def build_pipeline(X, classifier=None):
 
-    # Identify numerical and categorical columns
+    # Identify feature types
     numerical_features = X.select_dtypes(
         include=["number"]
     ).columns.tolist()
@@ -17,42 +17,35 @@ def build_pipeline(X):
     ).columns.tolist()
 
     # Numerical preprocessing
-    numeric_pipeline = Pipeline(
-        steps=[
-            ("imputer", SimpleImputer(strategy="median")),
-            ("scaler", StandardScaler())
-        ]
-    )
+    numeric_pipeline = Pipeline(steps=[
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler())
+    ])
 
     # Categorical preprocessing
-    categorical_pipeline = Pipeline(
-        steps=[
-            ("imputer", SimpleImputer(strategy="most_frequent")),
-            ("encoder", OneHotEncoder(handle_unknown="ignore"))
-        ]
-    )
+    categorical_pipeline = Pipeline(steps=[
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("encoder", OneHotEncoder(handle_unknown="ignore"))
+    ])
 
     # Combine preprocessing
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ("numeric", numeric_pipeline, numerical_features),
-            ("categorical", categorical_pipeline, categorical_features)
-        ]
-    )
+    preprocessor = ColumnTransformer(transformers=[
+        ("numeric", numeric_pipeline, numerical_features),
+        ("categorical", categorical_pipeline, categorical_features)
+    ])
 
-    # Classification model
-    classifier = LogisticRegression(
-        max_iter=1000,
-        class_weight="balanced",
-        random_state=42
-    )
+    # Default classifier: Day 1 Logistic Regression
+    if classifier is None:
+        classifier = LogisticRegression(
+            max_iter=1000,
+            class_weight="balanced",
+            random_state=42
+        )
 
     # Complete ML pipeline
-    model = Pipeline(
-        steps=[
-            ("preprocessor", preprocessor),
-            ("classifier", classifier)
-        ]
-    )
+    model = Pipeline(steps=[
+        ("preprocessor", preprocessor),
+        ("classifier", classifier)
+    ])
 
     return model

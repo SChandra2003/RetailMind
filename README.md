@@ -347,3 +347,79 @@ GitHub: [SChandra2003](https://github.com/SChandra2003)
 ---
 
 *RetailMind AI – Turning customer data into actionable churn insights.*
+
+### Day 5 – Deep Learning with Artificial Neural Networks
+
+Day 5 introduced deep learning into RetailMind AI using TensorFlow and Keras.
+
+The objective was to build a feed-forward Artificial Neural Network (ANN) for customer churn prediction and benchmark its performance against the classical machine-learning champion from Day 3.
+
+#### 1. MNIST Warm-up
+
+Before developing the churn prediction network, a neural network was implemented using the MNIST handwritten digit dataset.
+
+Concepts covered:
+- Dense neural network layers.
+- Flatten layers.
+- ReLU and Softmax activation functions.
+- Adam optimiser.
+- Categorical cross-entropy loss.
+- Forward propagation and backpropagation.
+- Training and validation curves.
+
+#### 2. ANN Architecture for Churn Prediction
+
+A feed-forward neural network was developed for binary classification.
+
+| Layer | Configuration |
+|---|---|
+| Input | Preprocessed customer features |
+| Dense | 128 neurons, ReLU |
+| Dropout | 0.30 |
+| Dense | 64 neurons, ReLU |
+| Dropout | 0.20 |
+| Dense | 32 neurons, ReLU |
+| Output | 1 neuron, Sigmoid |
+
+#### 3. Training Configuration
+
+- Optimiser: Adam
+- Learning rate: 0.001
+- Loss function: Binary Cross-Entropy
+- Batch size: 32
+- Maximum epochs: 50
+- Early stopping: Enabled
+- Class imbalance: Addressed using balanced class weights
+- Validation split: 20%
+
+Early stopping monitored validation loss and restored the best-performing weights.
+
+#### 4. Classical ML vs Deep Learning
+
+The ANN was benchmarked against the Day 3 tuned Random Forest.
+
+Evaluation metrics:
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+
+The comparison was used to investigate whether a neural network provides a meaningful advantage over classical machine learning for structured customer data.
+
+**Experimental finding:** [Insert your actual comparison and conclusion here.]
+
+#### 5. Saved Artifacts
+
+- `models/churn_v5.keras`
+- `models/ann_preprocessor.joblib`
+
+#### 6. When to Use Classical ML vs Deep Learning
+
+Classical machine-learning models such as Random Forest and XGBoost are often strong choices for structured tabular datasets, offering good predictive performance and relatively straightforward training.
+
+Neural networks can be useful when datasets are sufficiently large, patterns are complex, and suitable feature representations are available.
+
+Deep learning should not automatically replace classical machine learning. Model selection should be based on measured predictive performance, generalisation, computational cost, and business requirements.
+
+**Important:** The current comparison is experimental because the project test set has been reused across development stages. Independent evaluation on a fresh holdout dataset is recommended before production deployment.

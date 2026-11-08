@@ -1,0 +1,7 @@
+{
+    "image_height": 128,
+    "image_width": 128,
+    "channels": 3,
+    "normalization": "pixel_values_divided_by_255",
+    "num_classes": 54
+}

@@ -1,425 +1,394 @@
-# RetailMind AI – Customer Churn Prediction
+# RetailMind – Machine Learning & Deep Learning Project
 
-An end-to-end machine learning project that predicts customer churn in the telecommunications industry. RetailMind AI uses customer demographics, account information, service subscriptions, and billing details to identify customers who are likely to discontinue their services.
+RetailMind is an end-to-end machine learning and deep learning project focused on customer churn prediction and fashion product image classification.
 
-The objective is to help businesses proactively identify at-risk customers and develop targeted customer-retention strategies.
+The project progresses from traditional machine learning models to artificial neural networks (ANNs) and convolutional neural networks (CNNs), covering data preprocessing, feature engineering, model training, evaluation, and model persistence.
 
 ---
 
 ## Project Objectives
 
-- Analyse customer data to identify churn patterns.
-- Build machine learning models to predict customer churn.
-- Address class imbalance in the dataset.
-- Perform feature engineering to improve predictive performance.
-- Compare multiple classification algorithms.
-- Apply hyperparameter tuning and cross-validation.
-- Explore ensemble learning techniques.
-- Develop a reusable prediction pipeline.
-
-## Dataset
-
-**Dataset:** IBM Telco Customer Churn Dataset  
-**Source:** [Kaggle – Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
-
-| Attribute | Description |
-|---|---|
-| Initial records | 7,043 |
-| Initial features | 21 |
-| Target variable | Churn |
-| Target classes | Yes / No |
-| Prediction type | Binary Classification |
-
-The target variable was encoded as:
-
-- `0` – Customer did not churn.
-- `1` – Customer churned.
-
-The `customerID` column was excluded from model training because it is an identifier rather than a predictive feature.
-
-## Technology Stack
-
-- **Language:** Python
-- **Data Analysis:** Pandas, NumPy
-- **Visualisation:** Matplotlib, Seaborn
-- **Machine Learning:** Scikit-learn
-- **Ensemble Learning:** Random Forest, XGBoost
-- **Model Persistence:** Joblib
-- **Development Environment:** Jupyter Notebook, VS Code
-- **Version Control:** Git and GitHub
+- Predict customer churn using machine learning classification algorithms.
+- Perform hyperparameter tuning and feature engineering.
+- Compare traditional ML models with an Artificial Neural Network.
+- Build a CNN for fashion product image classification.
+- Develop reusable data preprocessing and prediction workflows.
+- Evaluate models using appropriate classification metrics.
 
 ---
 
-## Project Development
+## Technologies Used
 
-### Day 1 – Data Preprocessing and Baseline Model
-
-The initial stage focused on understanding the dataset, handling missing values, and establishing a baseline machine learning model.
-
-**Key activities:**
-- Exploratory Data Analysis (EDA).
-- Identification and treatment of missing values.
-- Conversion of `TotalCharges` into a numeric feature.
-- Encoding the target variable.
-- Stratified train-test split (80:20).
-- Development of a reusable preprocessing pipeline.
-
-**Baseline model:** Logistic Regression
-
-The preprocessing pipeline included:
-
-| Feature Type | Preprocessing |
+| Category | Tools |
 |---|---|
-| Numerical | Median imputation and StandardScaler |
-| Categorical | Most-frequent imputation and OneHotEncoder |
+| Language | Python |
+| Data Analysis | NumPy, Pandas |
+| Visualization | Matplotlib, Seaborn |
+| Machine Learning | Scikit-learn |
+| Deep Learning | TensorFlow, Keras |
+| Image Processing | PIL, TensorFlow Image API |
+| Dataset Download | KaggleHub |
+| Model Persistence | Joblib, Keras |
+| Development | Jupyter Notebook, VS Code |
+| Version Control | Git, GitHub |
 
-Class imbalance was addressed using `class_weight="balanced"`.
+---
 
-**Saved artifacts:**
-- `models/churn_pipeline.joblib`
-- `data/processed/test_data.csv`
+# Project Progress
+
+## Day 1 – Data Collection and Preprocessing
+
+**Objective:** Prepare the Telco Customer Churn dataset for machine learning.
+
+Tasks completed:
+
+- Loaded the Telco Customer Churn dataset.
+- Inspected dataset dimensions, data types, and missing values.
+- Removed the `customerID` column.
+- Converted `TotalCharges` into a numerical column.
+- Handled missing values.
+- Encoded the target variable `Churn`:
+  - No → 0
+  - Yes → 1
+- Performed stratified train-test splitting.
+- Created a reusable preprocessing pipeline using Scikit-learn.
+
+Preprocessing pipeline:
+
+- Numerical features:
+  - Median imputation
+  - Standard scaling
+- Categorical features:
+  - Most frequent imputation
+  - One-hot encoding
+
+**Dataset:** Telco Customer Churn – 7,043 records.
+
+**Artifacts:**
 - `cleaneddata.csv`
+- `models/churn_pipeline.joblib`
 
-### Day 2 – Model Comparison
+---
 
-Three additional classification algorithms were implemented and evaluated against the Logistic Regression baseline.
+## Day 2 – Model Comparison
 
-**Models implemented:**
-1. Decision Tree
-2. Random Forest
-3. Support Vector Machine (SVM)
+**Objective:** Establish machine learning baselines and identify the best-performing model.
 
-Each model used the reusable preprocessing pipeline to ensure consistent data preparation.
+Models trained:
 
-**Evaluation metrics:**
+1. Logistic Regression
+2. Decision Tree Classifier
+3. Random Forest Classifier
+4. Support Vector Machine (SVM)
+
+Evaluation metrics:
+
 - Accuracy
 - Precision
 - Recall
 - F1-score
 - ROC-AUC
 
-Random Forest emerged as the best-performing model in the Day 2 comparison.
+**Outcome:** Random Forest was selected as the leading model for further experimentation.
 
-**Saved artifacts:**
+Saved model artifacts:
+
 - `models/decision_tree.joblib`
 - `models/random_forest.joblib`
 - `models/svm.joblib`
 
-### Day 3 – Hyperparameter Tuning and Model Optimisation
+---
 
-The objective of Day 3 was to optimise the models and improve their generalisation performance.
+## Day 3 – Hyperparameter Tuning
 
-**Key activities:**
+**Objective:** Improve model performance through systematic hyperparameter optimization.
 
-- Implemented GridSearchCV.
-- Applied StratifiedKFold cross-validation with five folds.
-- Tuned Decision Tree, Random Forest, and SVM.
-- Used recall as the primary GridSearchCV scoring metric.
-- Compared training and validation performance.
-- Analysed potential overfitting and underfitting.
-- Generated learning curves.
-- Evaluated the selected model on the test dataset.
+Tasks completed:
 
-**Cross-validation results:**
+- Applied Stratified K-Fold cross-validation.
+- Used GridSearchCV for hyperparameter tuning.
+- Compared Decision Tree, Random Forest, and SVM.
+- Evaluated training and validation recall.
+- Selected the tuned Random Forest model as the champion model.
+
+Best cross-validation recall scores:
 
 | Model | Best CV Recall |
 |---|---:|
-| Random Forest | 0.8502 |
-| SVM | 0.8355 |
-| Decision Tree | 0.7826 |
+| Random Forest | 0.850167 |
+| SVM | 0.835452 |
+| Decision Tree | 0.782609 |
 
-Random Forest achieved the highest cross-validation recall.
+**Outcome:** Tuned Random Forest achieved the highest cross-validation recall.
 
-**Training-validation gap analysis:**
+Saved artifacts:
 
-| Model | Training Recall | Validation Recall | Gap |
-|---|---:|---:|---:|
-| Decision Tree | 0.8134 | 0.7826 | 0.0308 |
-| Random Forest | 0.8515 | 0.8502 | 0.0013 |
-| SVM | 0.8355 | 0.8355 | 0.0000 |
-
-The tuned Random Forest demonstrated strong consistency between training and validation recall.
-
-**Selected model:** Random Forest
-
-**Saved artifact:**
 - `models/churn_v3.joblib`
-
-**Tuning report:**
 - `reports/tuning_results.json`
 
-### Day 4 – Feature Engineering and Ensemble Learning
+---
 
-Day 4 focused on improving the predictive capabilities of the existing model through domain-specific feature engineering and ensemble learning.
+## Day 4 – Feature Engineering and Ensemble Experiments
 
-#### 1. Feature Engineering
+**Objective:** Improve churn prediction through domain-based feature engineering and model comparison.
 
-New features were derived from existing customer attributes.
+New features engineered:
 
-| Feature | Description |
-|---|---|
-| TenureGroup | Categorises customers based on tenure |
-| IsNewCustomer | Identifies customers with tenure of 12 months or less |
-| IsLongTermCustomer | Identifies customers with tenure of at least 48 months |
-| AverageMonthlyCharge | Total charges divided by tenure |
-| ChargeRatio | Compares actual total charges with expected charges |
-| ServiceCount | Counts subscribed services |
-| UsesMultipleServices | Identifies customers using at least three services |
-| IsMonthToMonth | Identifies month-to-month contracts |
-| HasLongTermContract | Identifies one-year and two-year contracts |
-| UsesElectronicBilling | Identifies customers using paperless billing |
+- `TenureGroup`
+- `IsNewCustomer`
+- `IsLongTermCustomer`
+- `AverageMonthlyCharge`
+- `ChargeRatio`
+- `ServiceCount`
+- `UsesMultipleServices`
+- `IsMonthToMonth`
+- `HasLongTermContract`
+- `UsesElectronicBilling`
 
-#### 2. Feature Importance Analysis
+Experiments performed:
 
-Random Forest feature importance was used to investigate the contribution of transformed features.
+- Feature importance analysis.
+- Feature selection using the fitted Random Forest estimator.
+- Training models on engineered features.
+- Comparing the original tuned Random Forest with engineered-feature models.
+- Experimenting with XGBoost.
 
-The tuned Day 3 Random Forest was reused for this analysis rather than unnecessarily training another importance-estimation model.
+Evaluation metrics:
 
-#### 3. Ensemble Learning
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
 
-Two ensemble models were trained using the engineered dataset:
+**Outcome:** Compared the impact of feature engineering on model performance.
 
-**Random Forest**
-- Bootstrap-based ensemble learning.
-- Multiple decision trees.
-- Class-weight balancing.
-- Aggregated predictions.
+Saved artifacts (confirm actual files in the repository):
 
-**XGBoost**
-- Gradient boosting framework.
-- Sequential tree construction.
-- Learning-rate regularisation.
-- Subsampling and feature subsampling.
-
-#### 4. Model Comparison
-
-The following models were compared:
-
-- Day 3 tuned Random Forest.
-- Day 4 Random Forest with engineered features.
-- Day 4 XGBoost with engineered features.
-
-Evaluation metrics included accuracy, precision, recall, F1-score, and ROC-AUC.
-
-**Final Day 4 comparison:**
-
-| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC |
-|---|---:|---:|---:|---:|---:|
-| Day 3 Random Forest | TBD | TBD | TBD | TBD | TBD |
-| Day 4 Random Forest | TBD | TBD | TBD | TBD | TBD |
-| Day 4 XGBoost | TBD | TBD | TBD | TBD | TBD |
-
-Replace the placeholders with the actual values from `day4_comparison_df`.
-
-**Saved artifacts:**
 - `models/churn_v4.joblib`
 - `reports/day4_model_comparison.csv`
 
 ---
 
-## Evaluation Metrics
+## Day 5 – Artificial Neural Network for Customer Churn Prediction
 
-The project uses multiple evaluation metrics to assess model performance.
+**Objective:** Build a deep learning model to predict customer churn and compare it with the traditional machine learning champion.
 
-| Metric | Purpose |
-|---|---|
-| Accuracy | Measures overall prediction correctness |
-| Precision | Measures how many predicted churners actually churn |
-| Recall | Measures how many actual churners are identified |
-| F1-score | Balances precision and recall |
-| ROC-AUC | Measures the model's ability to distinguish between churn classes |
+### MNIST Warm-up
 
-Recall is particularly important because failing to identify a customer who is likely to churn can result in a missed retention opportunity.
+Before building the churn ANN, explored neural network fundamentals using the MNIST handwritten digit dataset.
 
----
+Topics covered:
 
-## Project Structure
+- Neural network architecture
+- Input and output layers
+- Dense layers
+- ReLU activation
+- Softmax activation
+- Adam optimizer
+- Loss functions
+- Training and validation accuracy
+- Loss visualization across epochs
 
-```text
-RetailMind/
-│
-├── data/
-│   └── processed/
-│       └── test_data.csv
-│
-├── models/
-│   ├── churn_pipeline.joblib
-│   ├── decision_tree.joblib
-│   ├── random_forest.joblib
-│   ├── svm.joblib
-│   ├── churn_v3.joblib
-│   └── churn_v4.joblib
-│
-├── notebooks/
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_data_preprocessing.ipynb
-│   ├── 03_baseline_model.ipynb
-│   ├── 06_model_comparison.ipynb
-│   ├── 07_hyperparameter_tuning.ipynb
-│   └── 08_feature_engineering_ensembles.ipynb
-│
-├── reports/
-│   ├── tuning_results.json
-│   └── day4_model_comparison.csv
-│
-├── src/
-│   └── retailmind/
-│       └── pipeline.py
-│
-├── tests/
-│
-├── cleaneddata.csv
-├── README.md
-└── requirements.txt
-```
+### ANN for Churn Prediction
 
-*Note: The structure represents the intended project organisation. Adjust filenames if your actual notebook names differ.*
+Built a feedforward Artificial Neural Network using TensorFlow/Keras.
 
----
+Architecture:
 
-## Installation and Setup
+- Input layer
+- Dense layer – 128 neurons, ReLU
+- Dropout – 0.3
+- Dense layer – 64 neurons, ReLU
+- Dropout – 0.2
+- Dense layer – 32 neurons, ReLU
+- Output layer – 1 neuron, Sigmoid
 
-### 1. Clone the repository
+Training configuration:
 
-```bash
-git clone https://github.com/SChandra2003/RetailMind.git
-cd RetailMind
-```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv .venv
-```
-
-Activate it on Windows:
-
-```powershell
-.venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Launch Jupyter Notebook
-
-```bash
-jupyter notebook
-```
-
-Open the notebooks directory and execute the notebooks in the appropriate order.
-
----
-
-## Future Improvements
-
-- Further hyperparameter optimisation.
-- Experiment with SMOTE and other class-imbalance techniques.
-- Perform systematic feature selection inside cross-validation pipelines.
-- Explore probability calibration and decision-threshold optimisation.
-- Evaluate model explainability using SHAP.
-- Build an interactive churn prediction dashboard.
-- Develop a REST API using FastAPI.
-- Deploy the final model for real-time customer churn predictions.
-- Monitor model drift and prediction performance.
-
----
-
-## Important Considerations
-
-The current model is an experimental machine learning solution built using a public telecom churn dataset.
-
-The test set has been used for evaluation across multiple development stages. Therefore, the Day 4 comparison should be treated as an experimental benchmark rather than an independent estimate of final production performance.
-
-A future production version should use training-only cross-validation for model selection and a separate untouched holdout dataset for final evaluation.
-
----
-
-## Author
-
-**Subhojit Chandra**
-
-GitHub: [SChandra2003](https://github.com/SChandra2003)
-
----
-
-*RetailMind AI – Turning customer data into actionable churn insights.*
-
-### Day 5 – Deep Learning with Artificial Neural Networks
-
-Day 5 introduced deep learning into RetailMind AI using TensorFlow and Keras.
-
-The objective was to build a feed-forward Artificial Neural Network (ANN) for customer churn prediction and benchmark its performance against the classical machine-learning champion from Day 3.
-
-#### 1. MNIST Warm-up
-
-Before developing the churn prediction network, a neural network was implemented using the MNIST handwritten digit dataset.
-
-Concepts covered:
-- Dense neural network layers.
-- Flatten layers.
-- ReLU and Softmax activation functions.
-- Adam optimiser.
-- Categorical cross-entropy loss.
-- Forward propagation and backpropagation.
-- Training and validation curves.
-
-#### 2. ANN Architecture for Churn Prediction
-
-A feed-forward neural network was developed for binary classification.
-
-| Layer | Configuration |
-|---|---|
-| Input | Preprocessed customer features |
-| Dense | 128 neurons, ReLU |
-| Dropout | 0.30 |
-| Dense | 64 neurons, ReLU |
-| Dropout | 0.20 |
-| Dense | 32 neurons, ReLU |
-| Output | 1 neuron, Sigmoid |
-
-#### 3. Training Configuration
-
-- Optimiser: Adam
+- Optimizer: Adam
 - Learning rate: 0.001
-- Loss function: Binary Cross-Entropy
+- Loss: Binary Crossentropy
 - Batch size: 32
 - Maximum epochs: 50
-- Early stopping: Enabled
-- Class imbalance: Addressed using balanced class weights
-- Validation split: 20%
+- Early stopping based on validation loss
+- Class weighting to address class imbalance
 
-Early stopping monitored validation loss and restored the best-performing weights.
+The existing Day 3 preprocessing pipeline was reused to avoid duplicating preprocessing logic.
 
-#### 4. Classical ML vs Deep Learning
+### Evaluation
 
-The ANN was benchmarked against the Day 3 tuned Random Forest.
-
-Evaluation metrics:
 - Accuracy
 - Precision
 - Recall
 - F1-score
 - ROC-AUC
+- Classification report
+- Confusion matrix
 
-The comparison was used to investigate whether a neural network provides a meaningful advantage over classical machine learning for structured customer data.
+Compared the ANN against the tuned Random Forest model from Day 3.
 
-**Experimental finding:** [Insert your actual comparison and conclusion here.]
-
-#### 5. Saved Artifacts
+Saved artifacts:
 
 - `models/churn_v5.keras`
 - `models/ann_preprocessor.joblib`
 
-#### 6. When to Use Classical ML vs Deep Learning
+---
 
-Classical machine-learning models such as Random Forest and XGBoost are often strong choices for structured tabular datasets, offering good predictive performance and relatively straightforward training.
+## Day 6 – Fashion Product Image Classification Using CNN
 
-Neural networks can be useful when datasets are sufficiently large, patterns are complex, and suitable feature representations are available.
+**Objective:** Build a Convolutional Neural Network to classify real-world fashion product images into their respective categories.
 
-Deep learning should not automatically replace classical machine learning. Model selection should be based on measured predictive performance, generalisation, computational cost, and business requirements.
+This module introduces computer vision and image classification to the RetailMind project.
 
-**Important:** The current comparison is experimental because the project test set has been reused across development stages. Independent evaluation on a fresh holdout dataset is recommended before production deployment.
+### Part 1 – Fashion-MNIST CNN Warm-up
+
+Used the Fashion-MNIST dataset to understand CNN fundamentals.
+
+Dataset:
+
+- 60,000 training images
+- 10,000 test images
+- Image dimensions: 28 × 28
+- Grayscale images
+- 10 fashion categories
+
+CNN architecture:
+
+- Conv2D – 32 filters
+- MaxPooling2D
+- Conv2D – 64 filters
+- MaxPooling2D
+- Flatten
+- Dropout
+- Dense – 128 neurons
+- Softmax output layer
+
+Topics covered:
+
+- Convolution
+- Feature extraction
+- Max pooling
+- Flattening
+- Dropout
+- Softmax classification
+- Training and validation curves
+- Confusion matrix
+
+### Part 2 – Real Fashion Product Dataset
+
+Used the Kaggle dataset:
+
+`paramaggarwal/fashion-product-images-small`
+
+Downloaded using KaggleHub.
+
+Dataset components:
+
+- `styles.csv` – product metadata
+- `images/` – fashion product images
+
+The `articleType` column was used as the target classification category.
+
+### Part 3 – Data Preparation
+
+Tasks completed:
+
+- Loaded product metadata.
+- Matched product IDs with image filenames.
+- Removed records without valid image files or category labels.
+- Filtered categories with at least 100 images.
+- Encoded category labels using LabelEncoder.
+- Performed stratified train-validation-test splitting.
+
+Dataset split:
+
+- 70% Training
+- 15% Validation
+- 15% Testing
+
+### Part 4 – TensorFlow Image Pipeline
+
+Built a reusable `tf.data` input pipeline.
+
+Image preprocessing:
+
+- Image decoding
+- Resizing to 128 × 128
+- RGB conversion
+- Pixel normalization to the range [0, 1]
+- Batching
+- Dataset shuffling
+- Prefetching
+
+Applied horizontal flipping as a training-time augmentation.
+
+### Part 5 – CNN for Real Product Images
+
+Built a CNN using TensorFlow/Keras.
+
+Architecture:
+
+- Input layer – 128 × 128 × 3
+- Conv2D – 32 filters
+- MaxPooling2D
+- Conv2D – 64 filters
+- MaxPooling2D
+- Conv2D – 128 filters
+- MaxPooling2D
+- GlobalAveragePooling2D
+- Dense – 128 neurons
+- Dropout – 0.4
+- Softmax output layer
+
+Training configuration:
+
+- Optimizer: Adam
+- Learning rate: 0.001
+- Loss: Sparse Categorical Crossentropy
+- Metric: Accuracy
+- Maximum epochs: 20
+- Early stopping based on validation loss
+- Model checkpointing to preserve the best model
+
+### Part 6 – Evaluation
+
+Evaluated the trained CNN using:
+
+- Test accuracy
+- Precision
+- Recall
+- F1-score
+- Classification report
+- Confusion matrix
+
+Also analyzed category-level classification performance to identify visually similar categories that may be confused by the model.
+
+### Part 7 – Product Image Prediction
+
+Created a reusable prediction function that:
+
+1. Accepts a product image path.
+2. Reads and decodes the image.
+3. Resizes it to 128 × 128.
+4. Normalizes pixel values.
+5. Passes the image to the trained CNN.
+6. Returns the predicted product category and confidence score.
+
+Also implemented top-three category predictions.
+
+### Saved Artifacts
+
+- `models/best_product_cnn.keras`
+- `models/fashion_product_cnn.keras`
+- `models/product_class_mapping.json`
+- `models/product_image_config.json`
+
+---
+
+# Repository Structure
+
+The following is the intended project structure. Adjust filenames to match the actual files in the repository.
+
+```text
+Retail

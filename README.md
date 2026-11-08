@@ -391,4 +391,117 @@ Also implemented top-three category predictions.
 The following is the intended project structure. Adjust filenames to match the actual files in the repository.
 
 ```text
-Retail
+RetailMind/
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── notebooks/
+│   ├── 06_model_comparison.ipynb
+│   ├── 07_hyperparameter_tuning.ipynb
+│   ├── 08_feature_engineering_ensembles.ipynb
+│   ├── 09_ann_churn_model.ipynb
+│   └── 10_product_image_classifier.ipynb
+│
+├── models/
+│   ├── churn_pipeline.joblib
+│   ├── churn_v3.joblib
+│   ├── churn_v4.joblib
+│   ├── churn_v5.keras
+│   ├── ann_preprocessor.joblib
+│   ├── best_product_cnn.keras
+│   ├── fashion_product_cnn.keras
+│   ├── product_class_mapping.json
+│   └── product_image_config.json
+│
+├── reports/
+│   ├── tuning_results.json
+│   └── day4_model_comparison.csv
+│
+├── src/
+│   └── retailmind/
+│       └── pipeline.py
+│
+├── tests/
+│
+├── README.md
+└── requirements.txt
+```
+
+---
+
+# Key Learning Outcomes
+
+By completing the first six days, the project covers:
+
+- Data cleaning and preprocessing
+- Handling missing values
+- Encoding categorical variables
+- Feature engineering
+- Scikit-learn pipelines
+- Classification algorithms
+- Cross-validation
+- Hyperparameter tuning
+- Feature selection
+- Artificial Neural Networks
+- Convolutional Neural Networks
+- Image preprocessing
+- TensorFlow data pipelines
+- Data augmentation
+- Model evaluation
+- Confusion matrix analysis
+- Model serialization and reuse
+- Individual image inference
+
+---
+
+# How to Run the Project
+
+1. Clone the repository.
+2. Create and activate a Python virtual environment.
+3. Install the required dependencies.
+4. Launch Jupyter Notebook.
+5. Run the notebooks in sequence, using the appropriate dataset and model artifacts.
+
+Example:
+
+```bash
+git clone https://github.com/SChandra2003/RetailMind.git
+
+cd RetailMind
+
+pip install -r requirements.txt
+
+jupyter notebook
+```
+
+Note: The real fashion product dataset is downloaded separately through KaggleHub. Ensure Kaggle access is configured before running the Day 6 notebook.
+
+---
+
+# Future Improvements
+
+Potential next steps:
+
+- Transfer learning using MobileNetV2 or EfficientNet.
+- Compare CNN performance with pretrained models.
+- Improve generalization through data augmentation.
+- Build a product image classification interface.
+- Deploy the trained models through a FastAPI application.
+- Integrate churn prediction and product classification into a unified application.
+
+---
+
+## Project Status
+
+| Day | Module | Status |
+|---|---|---|
+| Day 1 | Data preprocessing | Completed |
+| Day 2 | Model comparison | Completed |
+| Day 3 | Hyperparameter tuning | Completed |
+| Day 4 | Feature engineering and ensembles | Completed |
+| Day 5 | ANN churn prediction | Completed |
+| Day 6 | Fashion product CNN classification | Completed |
+
+**Note:** Actual Day 5 and Day 6 evaluation metrics should be added after recording the final notebook outputs. The repository structure and optional report filenames should also be checked against the actual project files before publishing.

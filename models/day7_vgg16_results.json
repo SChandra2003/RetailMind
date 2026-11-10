@@ -1,0 +1,10 @@
+{
+    "model": "VGG16 Transfer Learning",
+    "image_height": 128,
+    "image_width": 128,
+    "num_classes": 5,
+    "day6_cnn_accuracy": 0.9745374321937561,
+    "day7_vgg16_accuracy": 0.9960461854934692,
+    "day7_vgg16_loss": 0.023171408101916313,
+    "accuracy_difference_percentage_points": 2.1508753299713135
+}

@@ -504,4 +504,176 @@ Potential next steps:
 | Day 5 | ANN churn prediction | Completed |
 | Day 6 | Fashion product CNN classification | Completed |
 
-**Note:** Actual Day 5 and Day 6 evaluation metrics should be added after recording the final notebook outputs. The repository structure and optional report filenames should also be checked against the actual project files before publishing.
+## Day 9 – RNN / LSTM Based Demand Forecasting
+
+### Objective
+Implemented a time-series demand forecasting module using an LSTM (Long Short-Term Memory) neural network to predict the next day's store sales based on historical sales data. The objective is to support better inventory planning and reduce the risk of overstocking and stockouts.
+
+### Dataset
+- **Dataset:** Rossmann Store Sales
+- **Source:** [Kaggle – Rossmann Store Sales](https://www.kaggle.com/c/rossmann-store-sales/data)
+- Selected Store 1 for the initial forecasting implementation.
+- Used historical daily sales records as the forecasting feature.
+
+### Implementation
+
+1. **Data Loading and Preprocessing**
+   - Loaded the Rossmann dataset using Pandas.
+   - Converted the Date column into datetime format.
+   - Selected sales records for a single store.
+   - Sorted records chronologically.
+   - Set the date as the DataFrame index and handled missing observations.
+
+2. **Data Splitting and Normalization**
+   - Divided the dataset into 80% training data and 20% testing data.
+   - Used chronological splitting to prevent future data leakage.
+   - Normalized sales values using the maximum sales value from the training dataset.
+
+3. **Sequence Generation**
+   - Implemented a sliding-window approach to prepare time-series data.
+   - Used the previous 30 consecutive days of sales to predict the next day's sales.
+   - Reshaped the input data into the 3D format required by LSTM:
+     `(samples, time_steps, features)`.
+
+4. **LSTM Model Development**
+   - Built a Sequential neural network using TensorFlow and Keras.
+   - Added an LSTM layer with 32 units.
+   - Added a Dense output layer with one neuron for next-day sales prediction.
+   - Compiled the model using the Adam optimizer and Mean Squared Error (MSE) loss function.
+
+5. **Model Training**
+   - Trained the model for 20 epochs.
+   - Used a batch size of 32.
+   - Disabled shuffling to maintain the chronological order of training sequences.
+
+6. **Model Evaluation**
+   - Generated predictions on the testing dataset.
+   - Calculated Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE).
+   - Compared actual and predicted sales values.
+   - Visualized the results to inspect forecasting performance.
+
+7. **Model Saving and Forecasting**
+   - Saved the trained model in Keras format as `demand_lstm.keras`.
+   - Used the latest 30 consecutive days of sales data to generate a next-day sales forecast.
+   - Prepared the forecasting module for future integration with RetailMind's inventory planning functionality.
+
+### Model Architecture
+
+
+Input Layer (30 time steps, 1 feature)
+              |
+         LSTM (32 Units)
+              |
+          Dense (1)
+              |
+     Next-Day Sales Prediction
+
+
+### Technologies Used
+- Python
+- Pandas
+- TensorFlow
+- Keras
+- Matplotlib
+
+
+### Output
+- Trained LSTM demand forecasting model.
+- Actual versus predicted sales comparison.
+- MAE and RMSE evaluation metrics.
+- Next-day store sales prediction.
+- Saved model: `models/demand_lstm.keras`
+
+
+## Day 10 – Seq2Seq & Attention-Based Demand Forecasting
+
+### Objective
+Extended the Day 9 LSTM demand forecasting model to predict multiple future days using a Sequence-to-Sequence (Seq2Seq) architecture with an Attention mechanism.
+
+### Dataset
+- Dataset: Rossmann Store Sales
+- Store selected: Store 1
+- Target variable: Sales
+
+### Implementation
+
+1. **Data Preparation**
+   - Loaded the Rossmann sales dataset.
+   - Selected sales records for Store 1.
+   - Converted the Date column into datetime format.
+   - Sorted sales records chronologically.
+   - Applied an 80:20 chronological train-test split.
+   - Normalized sales using the maximum training sales value.
+
+2. **Sequence Generation**
+   - Used the previous 30 days as input.
+   - Generated the next 14 days as target output.
+   - Implemented a sliding-window approach to create training and testing sequences.
+
+3. **Seq2Seq Model Development**
+   - Implemented an Encoder-Decoder LSTM architecture.
+   - Used the Encoder LSTM to learn historical sales patterns.
+   - Used RepeatVector to prepare the decoder input for 14 future time steps.
+   - Implemented an Attention mechanism to identify relevant historical information.
+   - Used a Dense output layer to generate 14-day sales predictions.
+
+4. **Model Training**
+   - Optimizer: Adam
+   - Loss Function: Mean Squared Error (MSE)
+   - Evaluation Metric: Mean Absolute Error (MAE)
+   - Used EarlyStopping to reduce unnecessary training and help prevent overfitting.
+
+5. **Model Evaluation**
+   - Evaluated the Seq2Seq model using MAE and RMSE.
+   - Compared its performance with the Day 9 single-step LSTM model.
+   - Used recursive forecasting with the Day 9 model to generate comparable 14-day predictions.
+
+6. **Attention Visualization**
+   - Extracted attention weights from the trained model.
+   - Created a heatmap to visualize how the decoder focuses on historical time steps while predicting future sales.
+
+7. **Future Demand Forecasting**
+   - Generated sales predictions for the next 14 days.
+   - Visualized historical sales alongside predicted sales.
+   - Exported future predictions into a CSV file.
+
+### Model Architecture
+
+**Input:** Previous 30 days of sales
+
+**Architecture:**
+- Encoder LSTM (32 units)
+- Decoder LSTM (32 units)
+- Attention Mechanism
+- Concatenation Layer
+- Dense Output Layer
+
+**Output:** Next 14 days of predicted sales
+
+### Technologies Used
+- Python
+- TensorFlow / Keras
+- NumPy
+- Pandas
+- Matplotlib
+- Scikit-learn
+
+### Files Generated
+
+| File | Description |
+|---|---|
+| `10_seq2seq_attention_forecasting.ipynb` | Day 10 implementation notebook |
+| `demand_seq2seq_attention.keras` | Trained Seq2Seq Attention model |
+| `demand_forecast_14_days.csv` | 14-day future sales predictions |
+| `day9_day10_comparison.csv` | Performance comparison between Day 9 and Day 10 |
+
+### Key Learnings
+- Understanding Sequence-to-Sequence learning.
+- Understanding Encoder-Decoder LSTM architecture.
+- Implementing Attention mechanisms in time-series forecasting.
+- Performing multi-step sales forecasting.
+- Evaluating forecasting models using MAE and RMSE.
+- Visualizing attention weights to understand model focus.
+
+### Outcome
+Successfully implemented an Attention-based Seq2Seq forecasting pipeline to predict 14 days of future sales and compare its performance against the Day 9 LSTM baseline.

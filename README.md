@@ -386,123 +386,41 @@ Also implemented top-three category predictions.
 
 ---
 
-# Repository Structure
 
-The following is the intended project structure. Adjust filenames to match the actual files in the repository.
-
-```text
-RetailMind/
-│
-├── data/
-│   ├── raw/
-│   └── processed/
-│
-├── notebooks/
-│   ├── 06_model_comparison.ipynb
-│   ├── 07_hyperparameter_tuning.ipynb
-│   ├── 08_feature_engineering_ensembles.ipynb
-│   ├── 09_ann_churn_model.ipynb
-│   └── 10_product_image_classifier.ipynb
-│
-├── models/
-│   ├── churn_pipeline.joblib
-│   ├── churn_v3.joblib
-│   ├── churn_v4.joblib
-│   ├── churn_v5.keras
-│   ├── ann_preprocessor.joblib
-│   ├── best_product_cnn.keras
-│   ├── fashion_product_cnn.keras
-│   ├── product_class_mapping.json
-│   └── product_image_config.json
-│
-├── reports/
-│   ├── tuning_results.json
-│   └── day4_model_comparison.csv
-│
-├── src/
-│   └── retailmind/
-│       └── pipeline.py
-│
-├── tests/
-│
-├── README.md
-└── requirements.txt
 ```
 
----
 
-# Key Learning Outcomes
 
-By completing the first six days, the project covers:
+Day 8 – Explainable Vision (Grad-CAM)
+1. Objective
+Implemented Grad-CAM (Gradient-weighted Class Activation Mapping) to understand which regions of a product image influence the predictions made by our VGG16 image classifier.
+2. What we covered
+1. Loaded the pretrained Day 7 fine-tuned VGG16 model.
+2. Identified the last convolutional layer: block5_conv3.
+3. Created a Grad-CAM model to extract feature maps and predictions.
+4. Loaded and preprocessed product images.
+5. Generated predictions using the trained classifier.
+6. Used TensorFlow's GradientTape to calculate gradients.
+7. Calculated importance weights for feature maps.
+8. Generated a Grad-CAM heatmap to highlight important image regions.
+3. Challenges faced and solutions
+Challenge	Solution
+Grad-CAM model connection error	Created a separate feature extractor for the nested VGG16 model and connected it to the classification layers.
+Incorrect image dimensions	Changed image resizing from 224 × 224 to 128 × 128, matching the trained model.
+Matrix multiplication error	Replaced @ with tf.reduce_sum() for weighted feature-map aggregation.
+Incorrect tensor dimensions	Investigated batch dimension handling and corrected feature-map extraction.
 
-- Data cleaning and preprocessing
-- Handling missing values
-- Encoding categorical variables
-- Feature engineering
-- Scikit-learn pipelines
-- Classification algorithms
-- Cross-validation
-- Hyperparameter tuning
-- Feature selection
-- Artificial Neural Networks
-- Convolutional Neural Networks
-- Image preprocessing
-- TensorFlow data pipelines
-- Data augmentation
-- Model evaluation
-- Confusion matrix analysis
-- Model serialization and reuse
-- Individual image inference
+4. Key learnings
+- Understanding how Grad-CAM explains CNN predictions.
+- Working with nested Keras models.
+- Understanding feature maps and gradients.
+- Using GradientTape for gradient calculation.
+- Understanding how CNN models focus on different image regions.
+5. Final outcome
+Completed
+ Grad-CAM implementation and heatmap generation using the existing VGG16 classifier without retraining.
 
----
-
-# How to Run the Project
-
-1. Clone the repository.
-2. Create and activate a Python virtual environment.
-3. Install the required dependencies.
-4. Launch Jupyter Notebook.
-5. Run the notebooks in sequence, using the appropriate dataset and model artifacts.
-
-Example:
-
-```bash
-git clone https://github.com/SChandra2003/RetailMind.git
-
-cd RetailMind
-
-pip install -r requirements.txt
-
-jupyter notebook
-```
-
-Note: The real fashion product dataset is downloaded separately through KaggleHub. Ensure Kaggle access is configured before running the Day 6 notebook.
-
----
-
-# Future Improvements
-
-Potential next steps:
-
-- Transfer learning using MobileNetV2 or EfficientNet.
-- Compare CNN performance with pretrained models.
-- Improve generalization through data augmentation.
-- Build a product image classification interface.
-- Deploy the trained models through a FastAPI application.
-- Integrate churn prediction and product classification into a unified application.
-
----
-
-## Project Status
-
-| Day | Module | Status |
-|---|---|---|
-| Day 1 | Data preprocessing | Completed |
-| Day 2 | Model comparison | Completed |
-| Day 3 | Hyperparameter tuning | Completed |
-| Day 4 | Feature engineering and ensembles | Completed |
-| Day 5 | ANN churn prediction | Completed |
-| Day 6 | Fashion product CNN classification | Completed |
+Day 8 takeaway: We moved beyond simply predicting product classes and explored how to interpret the visual information influencing our model's predictions.
 
 ## Day 9 – RNN / LSTM Based Demand Forecasting
 

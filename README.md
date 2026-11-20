@@ -595,3 +595,39 @@ Extended the Day 9 LSTM demand forecasting model to predict multiple future days
 
 ### Outcome
 Successfully implemented an Attention-based Seq2Seq forecasting pipeline to predict 14 days of future sales and compare its performance against the Day 9 LSTM baseline.
+
+
+Day 11 Summary — GANs & VAEs: Image Augmentation
+Project: RetailMind AI
+
+Objective: Explore generative models to create synthetic product images and address underrepresented product categories.
+1. What we covered
+- Downloaded the Fashion Product Images (Small) dataset containing 44,441 images.
+- Loaded styles.csv and analysed the distribution of 143 product categories.
+- Identified underrepresented categories.
+- Selected Leggings (177 images) for experimentation.
+- Prepared images by resizing them to 128 × 128 and normalizing pixel values between 0 and 1.
+- Split the dataset into training and validation sets (80:20).
+2. VAE implementation
+Built a Variational Autoencoder using TensorFlow/Keras.
+- Implemented the Encoder.
+- Implemented the Decoder.
+- Created the Sampling Layer.
+- Defined reconstruction loss and KL divergence.
+- Implemented a custom training step to handle Keras 3 compatibility.
+- Trained the VAE for 100 epochs.
+3. Challenges faced and solutions
+Challenge	Resolution
+Fashion dataset missing	Downloaded and integrated the dataset.
+KerasTensor error	Implemented custom VAE training logic.
+Missing call() method	Added the forward-pass implementation.
+Keras loss and validation errors	Updated training configuration and custom steps.
+Blurry generated images	Compared generated and reconstructed images to evaluate quality.
+Model serialization error	Identified the need for custom serialization or saving weights separately.
+
+4. Results
+- Successfully trained the VAE.
+- Reconstruction loss decreased during training.
+- The model learned basic product shapes and silhouettes.
+- Generated images remained blurry and lacked realistic details.
+- Synthetic images were not added to the classifier's training dataset.

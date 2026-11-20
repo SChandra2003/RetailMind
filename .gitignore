@@ -1,12 +1,48 @@
 
-# Trained machine learning models
-models/*.keras
-models/*.h5
-models/*.pkl
-models/*.joblib
+# Virtual Environments
+.venv/
+.venv-tf/
+venv/
+env/
 
-# Model checkpoints
-*.weights.h5
+# Dataset files
+data/
+*.csv
+*.parquet
+*.zip
 
-# Keep model metadata and evaluation results
-!models/*.json
+# Generated images and augmentation outputs
+outputs/
+*.jpg
+*.jpeg
+*.png
+
+# Trained models
+models/
+*.keras
+*.h5
+*.joblib
+*.pkl
+*.pth
+*.pt
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

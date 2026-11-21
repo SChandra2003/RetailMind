@@ -663,3 +663,64 @@ Tested sentiment predictions on sample product reviews.
 Generated a classification report for class-wise performance.
 
 Saved the fine-tuned model and tokenizer locally for future inference.
+
+
+
+
+## Day 12 – NLP & Classical Text Processing
+
+### Objective
+Implemented a classical NLP sentiment analysis module to analyze Amazon product reviews and identify customer sentiment using traditional machine learning techniques.
+
+### Dataset
+- **Dataset:** Amazon Polarity (`fancyzhx/amazon_polarity`)
+- Reused the dataset from Day 13 (BERT experiment).
+- Training samples: 10,000
+- Testing samples: 2,000
+- Classes: Positive (1) and Negative (0).
+- Combined review titles and content into a single text column.
+
+### Implementation
+
+1. **Dataset Preparation**
+   - Loaded the Amazon Polarity dataset.
+   - Converted the dataset into Pandas DataFrames.
+   - Combined review titles and content.
+
+2. **Text Preprocessing using NLTK**
+   - Converted text to lowercase.
+   - Removed HTML tags and special characters.
+   - Applied word tokenization.
+   - Removed English stopwords while preserving negation words (`not`, `no`, `nor`).
+
+3. **TF-IDF Vectorization**
+   - Converted cleaned reviews into numerical feature representations.
+   - Used unigrams and bigrams.
+   - Limited vocabulary to 10,000 features.
+   - Applied document frequency filtering.
+
+4. **Sentiment Classification**
+   - Implemented Logistic Regression as the classical sentiment classifier.
+   - Trained the model using TF-IDF features.
+   - Generated predictions for test reviews.
+
+5. **Model Evaluation**
+   - Evaluated using:
+     - Accuracy
+     - Precision
+     - Recall
+     - F1-score
+     - Classification Report
+     - Confusion Matrix
+   - Analyzed important positive and negative sentiment words using Logistic Regression coefficients.
+
+6. **Model Persistence**
+   - Saved the trained TF-IDF vectorizer and Logistic Regression model.
+   - Reloaded the saved artifacts and tested predictions on new reviews.
+
+### Challenges Faced & Solutions
+
+- **Missing NLTK Stopwords:** Encountered a LookupError because the stopwords corpus was unavailable. Resolved it by downloading the corpus separately.
+- **Missing Punkt Tab Resource:** The tokenizer required the `punkt_tab` resource. Downloaded it and configured the NLTK data directory.
+- **Model Storage:** Ensured model artifacts were saved in the root-level `RetailMind/models/` directory rather than inside the notebooks folder.
+

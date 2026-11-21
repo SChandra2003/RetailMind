@@ -46,3 +46,9 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Trained Transformer models
+models/bert_sentiment/
+
+# Hugging Face cache
+.cache/

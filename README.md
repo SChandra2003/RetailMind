@@ -631,3 +631,35 @@ Model serialization error	Identified the need for custom serialization or saving
 - The model learned basic product shapes and silhouettes.
 - Generated images remained blurry and lacked realistic details.
 - Synthetic images were not added to the classifier's training dataset.
+
+
+### Day 13 – Transformers & BERT: Text Intelligence
+
+
+Objective: Introduce transformer-based NLP into RetailMind by fine-tuning a pretrained BERT model for sentiment classification.
+
+Tasks Completed:
+
+Set up the Hugging Face environment using Transformers, Datasets and Accelerate.
+
+Loaded the Amazon Polarity dataset using Hugging Face Datasets.
+
+Inspected review titles, content and binary sentiment labels (Negative: 0, Positive: 1).
+
+Combined review titles and content for sentiment analysis.
+
+Loaded the pretrained bert-base-uncased tokenizer.
+
+Tokenized reviews using padding, truncation and a maximum sequence length of 128.
+
+Loaded BERT using AutoModelForSequenceClassification with two output classes.
+
+Fine-tuned BERT using Hugging Face Trainer.
+
+Evaluated the model using Accuracy, Precision, Recall and F1-score.
+
+Tested sentiment predictions on sample product reviews.
+
+Generated a classification report for class-wise performance.
+
+Saved the fine-tuned model and tokenizer locally for future inference.

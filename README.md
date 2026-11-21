@@ -724,3 +724,55 @@ Implemented a classical NLP sentiment analysis module to analyze Amazon product 
 - **Missing Punkt Tab Resource:** The tokenizer required the `punkt_tab` resource. Downloaded it and configured the NLTK data directory.
 - **Model Storage:** Ensured model artifacts were saved in the root-level `RetailMind/models/` directory rather than inside the notebooks folder.
 
+# Day 14 – LLM Applications: Summarization & Chatbot
+
+## Overview
+Day 14 focused on building practical LLM-powered applications for RetailMind. We implemented customer review summarization using Hugging Face Transformers and developed a product-support chatbot using the Google Gemini API.
+
+## 1. Review Summarization
+
+Implemented abstractive text summarization using the pretrained `facebook/bart-large-cnn` model.
+
+**Topics covered:**
+- Extractive vs. abstractive summarization.
+- Hugging Face summarization pipeline.
+- Summarizing individual and multiple customer reviews.
+- Chunk-based summarization.
+- Map-Reduce summarization.
+- ROUGE-1, ROUGE-2 and ROUGE-L evaluation.
+
+## 2. Chunk-Based Summarization
+
+Implemented a chunk-based approach to handle multiple customer reviews.
+
+**Workflow:**
+1. Divide reviews into smaller chunks.
+2. Generate individual summaries for each chunk.
+3. Combine the generated summaries.
+4. Generate a final consolidated summary.
+
+## 3. LLM API Integration
+
+Integrated Google's Gemini API using the official `google-genai` Python SDK.
+
+**Topics covered:**
+- API authentication using environment variables.
+- Gemini model selection.
+- Sending prompts and receiving generated responses.
+- Understanding system, user and assistant roles.
+
+## 4. RetailMind Product Chatbot
+
+Developed a product-support chatbot capable of answering questions based on product metadata and customer reviews.
+
+**Implemented features:**
+- System prompts for defining chatbot behaviour.
+- Structured prompt templates.
+- Product metadata grounding.
+- Customer review analysis.
+- API error handling.
+- Multi-turn conversations using conversation history.
+
+## 5. Modular Assistant Architecture
+
+Created a reusable `assistant.py` module to expose both AI capabilities.
